@@ -1,7 +1,7 @@
 {
   "name": "conductor",
   "description": "Conductor: Context-driven development for Claude Code - Measure twice, code once",
-  "version": "0.3.0",
+  "version": "0.2.2",
   "license": "MIT",
   "author": {
     "name": "Javokhirbek | TenXEngineer",
@@ -14,8 +14,7 @@
     "planning",
     "TDD",
     "workflow",
-    "subagents",
-    "agent-teams"
+    "subagents"
   ],
   "agents": [
     "./agents/context-explorer.md",

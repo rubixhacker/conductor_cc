@@ -14,7 +14,8 @@
     "planning",
     "TDD",
     "workflow",
-    "subagents"
+    "subagents",
+    "agent-teams"
   ],
   "agents": [
     "./agents/context-explorer.md",

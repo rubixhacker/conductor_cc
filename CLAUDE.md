@@ -29,7 +29,7 @@ When Conductor is set up, it creates these context files in `conductor/`:
 | ---------------------- | ----------------------------------------------------- |
 | `/conductor:setup`     | Initialize the Conductor environment for your project |
 | `/conductor:new-track` | Create a new feature/bug track with spec and plan     |
-| `/conductor:implement` | Execute tasks from a track's plan                     |
+| `/conductor:implement` | Execute tasks from a track's plan (use `--team` for Agent Teams) |
 | `/conductor:status`    | Display current project progress                      |
 | `/conductor:revert`    | Git-aware revert of tracks, phases, or tasks          |
 
@@ -49,6 +49,17 @@ In `plan.md` and `tracks.md` files:
 - `[ ]` - Pending (not started)
 - `[~]` - In Progress
 - `[x]` - Completed (with commit SHA appended)
+
+## Agent Teams (Experimental)
+
+Conductor supports Claude Code's **Agent Teams** feature for parallel implementation of complex tracks. This feature allows multiple autonomous agents to work together on different parts of a track (e.g., frontend, backend, QA) simultaneously.
+
+### Prerequisites
+- Enable Agent Teams: `export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`
+
+### Usage
+- Run `/conductor:implement --team` to enable the Agent Team mode.
+- Conductor will act as the Team Lead, spawning specialized teammates based on the track's plan.
 
 ## Subagents for Context Hygiene
 

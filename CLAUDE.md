@@ -59,7 +59,8 @@ Conductor supports Claude Code's **Agent Teams** feature for parallel implementa
 
 ### Usage
 - Run `/conductor:implement --team` to enable the Agent Team mode.
-- Conductor will act as the Team Lead, spawning specialized teammates based on the track's plan.
+- If `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` is not set, the command will halt with an error message directing you to enable the feature.
+- When enabled, Conductor acts as the Team Lead, spawning specialized teammates (e.g., Frontend, Backend, QA) based on the track's plan using Claude Code's native agent orchestration capabilities.
 
 ## Subagents for Context Hygiene
 

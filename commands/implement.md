@@ -82,8 +82,8 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
 
 4.  **Analyze and Form Team:**
     -   Analyze the `plan.md` to determine the necessary roles for parallel execution.
-    -   **CRITICAL:** You MUST now spawn the agent team using your natural language capabilities.
-    -   **Instruction to Agent:** "Spawn an agent team with the following structure based on the plan. Assign them specific responsibilities."
+    -   **CRITICAL:** You MUST now issue a prompt to Claude Code to spawn the agent team. Do NOT simulate this internally; use the native agent orchestration capabilities.
+    -   **Instruction to Agent:** "Create an agent team with the following structure based on the plan. Assign them specific responsibilities."
     -   **Example Prompt Structure:**
         > "Create an agent team to implement the track '<track_description>'.
         > Spawn the following teammates:

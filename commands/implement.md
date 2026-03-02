@@ -52,8 +52,64 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
 
 ---
 
-## 3.0 TRACK IMPLEMENTATION
-**PROTOCOL: Execute the selected track.**
+## 3.0 IMPLEMENTATION MODE
+**PROTOCOL: Determine the execution mode (Standard or Team).**
+
+1.  **Check for `--team` Flag:**
+    -   Check if the user invoked the command with the `--team` argument (e.g., `/conductor:implement --team`).
+
+2.  **Branch Logic:**
+    -   **If `--team` is detected:**
+        -   **Verify Agent Teams Feature:** Check if `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` environment variable is set to `1` by running `echo $CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`.
+        -   **If enabled:** Proceed to **3.1 TEAM ORCHESTRATION**.
+        -   **If disabled:** Announce: "Agent Teams are currently disabled. To use the `--team` flag, please enable them by running `export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`." and halt.
+    -   **If `--team` is NOT detected:**
+        -   Proceed to **3.2 STANDARD IMPLEMENTATION**.
+
+---
+
+## 3.1 TEAM ORCHESTRATION (EXPERIMENTAL)
+**PROTOCOL: Form and lead the agent team.**
+
+1.  **Announce Action:** Announce that you are starting the track implementation using an Agent Team.
+
+2.  **Update Status to 'In Progress':**
+    -   Update the track status in `conductor/tracks.md` to `[~]` (In Progress).
+
+3.  **Load Track Context:**
+    -   Identify the track folder link from `conductor/tracks.md`.
+    -   Read the content of `conductor/tracks/<track_id>/plan.md`, `conductor/tracks/<track_id>/spec.md`, `conductor/tech-stack.md`, and `conductor/workflow.md`.
+
+4.  **Analyze and Form Team:**
+    -   Analyze the `plan.md` to determine the necessary roles for parallel execution.
+    -   **CRITICAL:** You MUST now issue a prompt to Claude Code to spawn the agent team. Do NOT simulate this internally; use the native agent orchestration capabilities.
+    -   **Instruction to Agent:** "Create an agent team with the following structure based on the plan. Assign them specific responsibilities."
+    -   **Example Prompt Structure:**
+        > "Create an agent team to implement the track '<track_description>'.
+        > Spawn the following teammates:
+        > - [Role 1]: [Description of responsibility]
+        > - [Role 2]: [Description of responsibility]
+        > - QA Specialist: To verify the implementation against spec.md.
+        >
+        > Assign tasks from the `plan.md` to the teammates. Coordinate their work, ensure they follow the `tech-stack.md` and `workflow.md`, and synthesize their results."
+
+5.  **Manage Execution:**
+    -   As the Team Lead, your job is to:
+        -   Assign tasks to teammates.
+        -   Review their outputs.
+        -   Resolve conflicts.
+        -   Ensure the implementation matches the `spec.md`.
+
+6.  **Finalize:**
+    -   Once all tasks are complete and verified:
+        -   Update the track status in `conductor/tracks.md` to `[x]`.
+        -   Announce completion.
+        -   Proceed to **6.0 SYNCHRONIZE PROJECT DOCUMENTATION**.
+
+---
+
+## 3.2 STANDARD IMPLEMENTATION
+**PROTOCOL: Execute the selected track sequentially.**
 
 1.  **Announce Action:** Announce which track you are beginning to implement.
 
@@ -79,6 +135,7 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
     -   After all tasks in the track's local `plan.md` are completed, you MUST update the track's status in the tracks file.
     -   This requires finding the specific heading for the track (e.g., `## [~] Track: <Description>`) and replacing it with the completed status (e.g., `## [x] Track: <Description>`).
     -   Announce that the track is fully complete and the tracks file has been updated.
+    -   Proceed to **6.0 SYNCHRONIZE PROJECT DOCUMENTATION**.
 
 ---
 
